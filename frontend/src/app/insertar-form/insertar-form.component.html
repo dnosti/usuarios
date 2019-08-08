@@ -1,0 +1,15 @@
+<form [formGroup]="insertarForm" (ngSubmit)="submitUser()">
+  <div class="form-group">
+    <label for="inputNombre">Nombre</label>
+    <input type="text" formControlName="nombre" class="form-control form-control-sm" id="inputNombre"
+      aria-describedby="nombreHelp" placeholder="ingrese nombre..." />
+  </div>
+
+  <div class="form-group">
+    <label for="inputApellido">Apellido</label>
+    <input type="text" formControlName="apellido" class="form-control form-control-sm" id="inputApellido"
+      placeholder="ingrese apellido..." />
+  </div>
+  
+  <button type="submit" class="btn btn-primary btn-sm">Agregar Usuario</button>
+</form>

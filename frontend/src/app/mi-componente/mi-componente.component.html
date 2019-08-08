@@ -1,0 +1,96 @@
+<div class="container">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <h1 class="navbar-brand-tipo-dn navbar-brand">
+                <img src="../assets/images/M_box.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                Microsoft Usuarios 1.0
+            </h1>
+        </nav>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a (click)="showAllUsers(); mostrarDatos()" class="nav-link" href="#">Mostrar Todos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#collapseAddUser" data-toggle="collapse" aria-expanded="false"
+                        aria-controls="collapseAddUser">Agregar</a>
+                </li>
+
+                <li class="nav-item">
+                    <a (click)="borrarUsuarios()" class="nav-link" href="#">Borrar Todos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a (click)="ocultarDatos()" class="nav-link" tabindex="-1" href="#">Ocultar Lista</a>
+                </li>
+            </ul>
+            <ul class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Ingresar ID..." [(ngModel)]="id"
+                    aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0"
+                    (click)="showUser(id); mostrarDatos()">Buscar</button>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="collapse" id="collapseAddUser">
+        <div class="card card-body">
+            <app-insertar-form (actualizar)="addUser($event)"></app-insertar-form>
+        </div>
+    </div>
+    <article>
+        <br>
+        <ul class="list-group list-group-flush" *ngIf="mostrar">
+            <li class="list-group-item" *ngFor="let usuario of usuarios; let indice=index"> {{indice+1}}
+                ID:{{usuario.id}} {{usuario.nombre}}
+                {{usuario.apellido}}
+                <button (click)="borrarUsuario(usuario.id)" class="btn btn-sm btn-success pull-right"><i
+                        class="fa fa-trash"></i></button>
+                <button class="margin-boton-lista-dn btn btn-sm btn-success pull-right" data-toggle="collapse"
+                    data-target="#collapseUpdateUser" aria-expanded="false" aria-controls="collapseUpdateUser"
+                    [class.selected]="usuario === selectedUser" (click)="onSelect(usuario)">
+                    <i class="fa fa-pencil"></i></button>
+            </li>
+        </ul>
+    </article>
+    <br>
+    <div class="collapse" id="collapseUpdateUser">
+        <div class="card card-body">
+            <h6><strong>Actualizar Usuario</strong></h6>
+            <div *ngIf="selectedUser">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group form-inline">
+                            <input class="form-control form-control-sm" type="text"
+                                placeholder="ID: {{selectedUser.id}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group form-inline">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="selectedUser.nombre"
+                                placeholder="ingrese nombre..." />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group form-inline">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="selectedUser.apellido"
+                                placeholder="ingrese apellido..." />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group form-inline">
+                            <button (click)="modificarUsuario(selectedUser)" class="btn btn-primary btn-sm"
+                                data-toggle="collapse" data-target="#collapseUpdateUser" aria-expanded="false"
+                                aria-controls="collapseUpdateUser">Actualizar Usuario</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- {{datos | json}}-->
